@@ -10,7 +10,7 @@ const mongoose=require('mongoose');
 mongoose.connect('mongodb://localhost/sportsBlog');
 const db=mongoose.connection;
 // Port
-const port = 3000;
+const port =process.env.PORT || 3000;
 // init app
 const app = express();
 app.locals.moment =require('moment');
