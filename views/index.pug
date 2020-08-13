@@ -13,6 +13,6 @@ block content
             h2.post-title #{article.title}
           h4.post-subtitle #{article.subtitle}
           p.post-meta
-            | Posted by #{articles.author}
+            | Posted by #{article.author}
             | on #{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
             hr

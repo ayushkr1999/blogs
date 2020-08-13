@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "*",
     "connect-flash": "*",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
     "express": "*",
     "express-messages": "*",
     "express-session": "*",

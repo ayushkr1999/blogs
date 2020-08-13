@@ -5,12 +5,19 @@ const session = require('express-session');
 const expressValidator = require('express-validator');
 const mongoose=require('mongoose');
 
+const dotenv=require('dotenv');
+const connectDB =require('./config/db');
+
+//load config
+dotenv.config({path:'./config/config.env'});
 
 //mongoose connectt
-mongoose.connect('mongodb://localhost/sportsBlog');
-const db=mongoose.connection;
+// mongoose.connect('mongodb://localhost/sportsBlog');
+// const db=mongoose.connection;
 // Port
 const port =process.env.PORT || 3000;
+
+connectDB();
 // init app
 const app = express();
 app.locals.moment =require('moment');
@@ -68,5 +75,5 @@ app.use('/categories', categories);
 app.use('/manage', manage);
 
 app.listen(port, () => {
-  console.log('Server started on port '+port);
+  console.log(`Server started in ${process.env.NODE_ENV} mode on port ${port} `);
 });
