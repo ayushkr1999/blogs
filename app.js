@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const mongoose=require('mongoose');
+const passport=require('passport');
+const morgan = require('morgan')
 
 const dotenv=require('dotenv');
 const connectDB =require('./config/db');
@@ -69,10 +71,21 @@ app.use(expressValidator({
   }
 }));
 
+
+// Passport config
+require('./config/passport')(passport)
+
+
+// Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+//Routes
 app.use('/', index);
 app.use('/articles', articles);
 app.use('/categories', categories);
 app.use('/manage', manage);
+app.use('/auth', require('./routes/auth'));
 
 app.listen(port, () => {
   console.log(`Server started in ${process.env.NODE_ENV} mode on port ${port} `);

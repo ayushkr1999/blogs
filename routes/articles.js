@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const Article = require('../models/article.js');
 
 router.get('/', (req, res, next) => {
@@ -38,7 +38,7 @@ router.get('/category/:category_id', (req, res, next) => {
 });
 
 //add artciles
-router.post('/add' , (req,res,next)=>{
+router.post('/add' ,ensureAuth ,(req,res,next)=>{
   req.checkBody('title','Title is req').notEmpty();
   req.checkBody('author','author is req').notEmpty();
   req.checkBody('category','category is req').notEmpty();
@@ -76,7 +76,7 @@ router.post('/add' , (req,res,next)=>{
 });
 
 //edit articlse -post
-router.post('/edit/:id' , (req,res,next)=>{
+router.post('/edit/:id' ,ensureAuth, (req,res,next)=>{
   req.checkBody('title','Title is req').notEmpty();
   req.checkBody('author','author is req').notEmpty();
   req.checkBody('category','category is req').notEmpty();
@@ -119,7 +119,7 @@ router.post('/edit/:id' , (req,res,next)=>{
 
 //delete article
 
-router.delete('/delete/:id',(req,res,next)=>{
+router.delete('/delete/:id',ensureAuth,(req,res,next)=>{
   // let category =new Category();
   const query ={_id: req.params.id}
   // const update ={title :req.body.title, description:req.body.description}

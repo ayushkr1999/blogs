@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 Category =require('../models/category.js');
 Article =require('../models/article.js');
+const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
-
-router.get('/articles', (req, res, next) => {
+router.get('/articles',ensureAuth, (req, res, next) => {
   Article.getArticles((err,articles)=>{
     if(err){
       res.send(err);
