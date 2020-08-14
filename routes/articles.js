@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const Article = require('../models/article.js');
+const Article2 = require('../models/article2.js');
 
 router.get('/', (req, res, next) => {
   Article.getArticles((err,articles)=>{
@@ -12,6 +13,18 @@ router.get('/', (req, res, next) => {
   });
 });
 
+//show all admin articles
+router.get('/admin', (req, res, next) => {
+  Article2.getArticles((err,articles)=>{
+    res.render('articles2',{
+      title: 'Articlesadmin',
+      articles:articles
+    });
+  });
+});
+
+
+
 router.get('/show/:id', (req, res, next) => {
     Article.getArticleById(req.params.id, (err, article)=>{
       // console.log(article.title);
@@ -20,6 +33,46 @@ router.get('/show/:id', (req, res, next) => {
         article: article
       });
     });
+
+});
+
+// get pushing articles
+router.get('/admin/show/:id', (req, res, next) => {
+    Article2.getArticleById(req.params.id, (err, article)=>{
+      // console.log(article.title);
+      res.render('article2',{
+        title: 'Articleadmin',
+        article: article
+      });
+    });
+
+});
+
+// push article
+router.get('/admin/show/add/:id',(req,res,next)=>{
+
+  // let article2 =new Article();
+
+  // category.description=req.body.description;
+  Article2.getArticleById(req.params.id, (err, article)=>{
+    // console.log(article.title);
+    // console.log(article.title);
+    // console.log(article.subtitle);
+    let article2 =new Article();
+    article2.title=article.title;
+    article2.subtitle=article.subtitle;
+    article2.category=article.category;
+    article2.body=article.body;
+    article2.author=article.author;
+
+    Article.addArticle(article2,(err, article2)=>{
+      if(err){
+        res.send(err);
+      }
+      // req.flash('success','You Article will be added when its Verified');
+      res.redirect('/articles/admin');
+    });
+  });
 
 });
 
@@ -56,7 +109,7 @@ router.post('/add' ,ensureAuth ,(req,res,next)=>{
 
   }
   else{
-    let article =new Article();
+    let article =new Article2();
     article.title=req.body.title;
     article.subtitle=req.body.subtitle;
     article.category=req.body.category;
@@ -64,11 +117,11 @@ router.post('/add' ,ensureAuth ,(req,res,next)=>{
     article.author=req.body.author;
     // category.description=req.body.description;
 
-    Article.addArticle(article,(err, article)=>{
+    Article2.addArticle(article,(err, article)=>{
       if(err){
         res.send(err);
       }
-      req.flash('success','Article Add');
+      req.flash('success','You Article will be added when its Verified');
       res.redirect('/manage/articles');
     });
   }
@@ -116,6 +169,7 @@ router.post('/edit/:id' ,ensureAuth, (req,res,next)=>{
 
 
 });
+
 
 //delete article
 

@@ -1,12 +1,13 @@
 const express = require('express');
+
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const mongoose=require('mongoose');
 const passport=require('passport');
-const morgan = require('morgan')
-
+const morgan = require('morgan');
+const MongoStore =require('connect-mongo')(session);
 const dotenv=require('dotenv');
 const connectDB =require('./config/db');
 
@@ -51,7 +52,8 @@ app.use((req, res, next) => {
 app.use(session({
   secret:'secret',
   resave:false,
-  saveUninitialized:true
+  saveUninitialized:false,
+  store:new MongoStore({mongooseConnection:mongoose.connection})
 }));
 // Express validator
 app.use(expressValidator({

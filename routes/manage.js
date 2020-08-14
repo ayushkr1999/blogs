@@ -10,14 +10,14 @@ router.get('/articles',ensureAuth, (req, res, next) => {
       res.send(err);
     }
     res.render('manage_articles',{
-      title: 'manage articels',
+      title: 'Manage Articles',
       articles:articles
     });
   });
 
 });
 
-router.get('/categories', (req, res, next) => {
+router.get('/categories',ensureAuth,(req, res, next) => {
    Category.getCategories((err , categories)=>{
     if(err){
       res.send(err);
@@ -38,10 +38,10 @@ router.get('/categories', (req, res, next) => {
 router.get('/articles/add', (req, res, next) => {
   Category.getCategories((err,categories)=>{
     if(err){
-      re.send(err);
+      res.send(err);
     }
     res.render('add_article', {
-      title: 'Create   Article',
+      title: 'Create Article',
       categories:categories
     });
   });
