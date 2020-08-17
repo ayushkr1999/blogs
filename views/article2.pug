@@ -9,5 +9,5 @@ block content
       | on #{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
     p.post-body
       h3
-        | #{article.body}
-      a(href='/articles/admin/show/add/'+article._id) Push-Article 
+        | !{article.body}
+      a(href='/articles/admin/show/add/'+article._id) Push-Article

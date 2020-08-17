@@ -25,5 +25,7 @@ block content
       .form-group
         label Body:
         textarea.form-control(name='body')
+        script.
+          CKEDITOR.replace( 'body' );
       input.btn.btn-primary(type='submit', name='submit', value='Save')
       a.btn.btn-danger(href='/manage/articles') Back

@@ -9,7 +9,7 @@ block content
       | on #{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
     p.post-body
       h3
-        | #{article.body}
+        | !{article.body}
     hr
     ul.errors
       if errors
