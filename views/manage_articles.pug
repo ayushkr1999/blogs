@@ -2,6 +2,7 @@ extends layout
 
 block content
   .container
+    h1 Welcome #{name}
     .row
       .col-md-9
         h1 #{title}
@@ -12,11 +13,11 @@ block content
       tr
         th Articles Title
         th Date Published
-        th
+        th Edit Blog
       each article , i in articles
         tr
           td #{article.title}
           td #{moment(article.created_at).format('MMMM do YYYY, h:mm:ss a')}
-          td #{article.author}
+
           td
             a(class="btn btn-tiny btn-default" href='/manage/articles/edit/'+article._id) Edit

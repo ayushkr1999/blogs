@@ -63,7 +63,7 @@ router.get('/admin/show/add/:id',(req,res,next)=>{
     article2.subtitle=article.subtitle;
     article2.category=article.category;
     article2.body=article.body;
-    article2.author=article.author;
+    article2.user=article.user;
 
     Article.addArticle(article2,(err, article2)=>{
       if(err){
@@ -93,7 +93,7 @@ router.get('/category/:category_id', (req, res, next) => {
 //add artciles
 router.post('/add' ,ensureAuth ,(req,res,next)=>{
   req.checkBody('title','Title is req').notEmpty();
-  req.checkBody('author','author is req').notEmpty();
+  // req.checkBody('author','author is req').notEmpty();
   req.checkBody('category','category is req').notEmpty();
   req.checkBody('body','body is req').notEmpty();
 
@@ -114,7 +114,8 @@ router.post('/add' ,ensureAuth ,(req,res,next)=>{
     article.subtitle=req.body.subtitle;
     article.category=req.body.category;
     article.body=req.body.body;
-    article.author=req.body.author;
+    article.user=req.user.id;
+    // article.author=req.body.author;
     // category.description=req.body.description;
 
     Article2.addArticle(article,(err, article)=>{
@@ -131,7 +132,7 @@ router.post('/add' ,ensureAuth ,(req,res,next)=>{
 //edit articlse -post
 router.post('/edit/:id' ,ensureAuth, (req,res,next)=>{
   req.checkBody('title','Title is req').notEmpty();
-  req.checkBody('author','author is req').notEmpty();
+  // req.checkBody('author','author is req').notEmpty();
   req.checkBody('category','category is req').notEmpty();
   req.checkBody('body','body is req').notEmpty();
 
@@ -152,7 +153,7 @@ router.post('/edit/:id' ,ensureAuth, (req,res,next)=>{
       title:req.body.title,
       subtitle:req.body.subtitle,
       category:req.body.category,
-      author:req.body.author,
+      // author:req.body.author,
       body:req.body.body
     }
 

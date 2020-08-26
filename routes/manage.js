@@ -2,16 +2,18 @@ const express = require('express');
 const router = express.Router();
 Category =require('../models/category.js');
 Article =require('../models/article.js');
+Article2 =require('../models/article2.js');
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 router.get('/articles',ensureAuth, (req, res, next) => {
-  Article.getArticles((err,articles)=>{
+  Article.getArticlesbyauth(req.user.id,req.user.firstName,(err,articles)=>{
     if(err){
       res.send(err);
     }
     res.render('manage_articles',{
       title: 'Manage Articles',
-      articles:articles
+      articles:articles,
+      name: req.user.firstName
     });
   });
 

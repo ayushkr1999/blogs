@@ -22,13 +22,11 @@ block content
                 option(value=category._id, selected) #{category.title}
               else
                 option(value=category._id) #{category.title}
-
-      .form-group
-        label Author:
-        input.form-control(name='author',type='text', value=article.author)
       .form-group
         label Body:
         textarea.form-control(name='body') #{article.body}
+        script.
+          CKEDITOR.replace( 'body' );
       input.btn.btn-primary(type='submit', name='submit', value='Save')
       a.btn.btn-default(href='/manage/articles') Back
       a.btn.btn-danger.article-delete.pull-right(href='/manage/articles', data-article-id=article._id) Delete

@@ -14,8 +14,9 @@ const articleSchema = mongoose.Schema({
   category:{
     type:String
   },
-  author:{
-    type:String
+  user:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User',
   },
   body:{
     type:String
@@ -63,6 +64,7 @@ module.exports.getArticleById = function(id,callback){
 module.exports.updateArticle = function(query,update,options,callback){
   Article.findOneAndUpdate(query,update,options,callback);
 }
+
 //delete articel
 module.exports.removeArticle = function(query,callback){
   Article.deleteOne(query,callback);
@@ -83,4 +85,10 @@ module.exports.addComment = function(query,comment,callback){
     },
     callback
   );
+}
+
+module.exports.getArticlesbyauth = function(auth,name,callback){
+  let query={user: auth}
+  console.log(auth);
+  Article.find(query,callback).sort([['title','ascending']]);
 }
