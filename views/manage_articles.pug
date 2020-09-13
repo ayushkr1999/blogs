@@ -5,13 +5,13 @@ block content
     h1 Welcome #{name}
     .row
       .col-md-9
-        h1 #{title}
+        h1 Manage Blogs
       .col-md-3
-        a(class="btn btn-default create-btn" ,href="/manage/articles/add") Add Article
+        a(class="btn btn-default create-btn" ,href="/manage/articles/add") Add Blogs
     !=messages()
     table(class='table table-striped')
       tr
-        th Articles Title
+        th Blog Title
         th Date Published
         th Edit Blog
       each article , i in articles
